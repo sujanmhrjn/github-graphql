@@ -18,7 +18,7 @@ const UserPage = () => {
             </div>
             <div className='-mx-16 flex flex-wrap'>
                 <div className='w-full lg:w-2/12 px-16'>
-                    <img src={user.avatarUrl} width="200" className='mb-10 border-1 border-gray-300 rounded-sm'/>
+                    <img src={user.avatarUrl} width="200" alt={user.name} className='mb-10 border-1 border-gray-300 rounded-sm'/>
                     <h2 className='font-bold'>{user.name}</h2>
                     <a href={user.url} target="_blank" rel="noreferrer" className='text-sm hover:text-red-300'>View Github Profile</a>
                 </div>

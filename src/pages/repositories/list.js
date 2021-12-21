@@ -12,13 +12,13 @@ const RepositoriesList = () => {
     const getUserIdFromUrl = state.selectedUser?.url.substring(state.selectedUser?.url.lastIndexOf('/')+1)
     const [executeMyQuery, { data: queryData, loading, error, fetchMore, previousData }] = useLazyQuery(FETCH_REPOSITORIES);
     const [repositories, setRepositories] = useState([])
-    const [totalPageCount, setTotalPageCount] = useState(0)
+    // const [totalPageCount, setTotalPageCount] = useState(0)
     const perPage = 10
     useEffect(()=>{
         executeMyQuery({
             variables: { login: getUserIdFromUrl, first: perPage, last: null,  after: null, before:null, isFork: false, ownerAffiliations: "OWNER"}
         })
-    },[getUserIdFromUrl])
+    },[executeMyQuery, getUserIdFromUrl])
 
     useEffect(()=>{
         setRepositories(queryData?.user.repositories.edges)
@@ -38,7 +38,7 @@ const RepositoriesList = () => {
     }
 
     if(loading) return "loading..."
-
+    if(error) return "error..."
     return(
         <div className="w-full">
             <h2 className='font-bold uppercase font-rubik text-lg mb-10'>Repositories</h2>

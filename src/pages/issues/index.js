@@ -11,7 +11,7 @@ const IssuesPage = () => {
     const [issueModalActive, setIssueModalActive] = useState(false)
     const getUserIdFromUrl = state.selectedUser?.url.substring(state.selectedUser?.url.lastIndexOf('/')+1)
     const perPage=100
-    const [executeMyQuery, { data: queryData, loading, error, fetchMore }] = useLazyQuery(FETCH_ISSUES);
+    const [executeMyQuery, { data: queryData, loading, error }] = useLazyQuery(FETCH_ISSUES);
     const [data, setData] = useState([])
     const onBackClick = () => {
         dispatch({selectedRepository:null})
@@ -20,7 +20,7 @@ const IssuesPage = () => {
         executeMyQuery({
             variables: { owner: getUserIdFromUrl, name:state.selectedRepository.name, first: perPage, last: null,  after: null, before:null, states: "OPEN"}
         })
-    },[])
+    },[executeMyQuery, getUserIdFromUrl, state.selectedRepository.name])
 
     useEffect(()=>{
         setData(queryData?.repository.issues.edges)
@@ -73,7 +73,7 @@ const IssuesPage = () => {
                         
                         </div>
                     }
-                    {data && data.length == 0 && "No Issues Found"}
+                    {data && data.length === 0 && "No Issues Found"}
                 </div>
             </div>
             <Modal title="New Issue" isOpen={issueModalActive} onToggle={onIssueModalToggle}>

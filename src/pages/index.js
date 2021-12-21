@@ -8,7 +8,7 @@ import { AppContext } from '../context/appContext'
 
 //token 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
 const HomePage = () => {
-  const { state, dispatch } = useContext(AppContext)
+  const {  dispatch } = useContext(AppContext)
   const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState(null)
   const [search, setSearch] = useState()
@@ -18,13 +18,13 @@ const HomePage = () => {
   }
   useEffect(() => {
     executeSearch()
-  }, [])
+  }, [executeSearch])
 
   useEffect(() => {
     dispatch({ users: data?.organization?.membersWithRole?.nodes })
     setUsers(data?.organization?.membersWithRole?.nodes)
     setFilteredUsers(data?.organization?.membersWithRole?.nodes)
-  }, [data])
+  }, [data, dispatch])
 
   useEffect(() => {
     if (search) {
@@ -36,7 +36,7 @@ const HomePage = () => {
     } else {
       setFilteredUsers(users)
     }
-  }, [search])
+  }, [search, users])
   return (
     <div className='py-16 font-rubik'>
       <div className='container px-16 mx-auto'>
