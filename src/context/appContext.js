@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 
-const AppContext = React.createContext({});
+const AppContext = React.createContext(null);
 const initialState = {
     users: [],
     selectedUser:null,
