@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+//token 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
+import React from "react";
+
+
+import HomePage from './pages';
+import RepositoriesPage from './pages/repositories';
+import IssuePage from './pages/issues';
+import { useContext } from 'react';
+import { AppContext } from "./context/appContext";
+
+
+const App = () => {
+  const {state, dispatch} = useContext(AppContext)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+
+      <div>
+        {!state.selectedUser && <HomePage/>}
+        {state.selectedUser && !state.selectedRepository && <RepositoriesPage/> }
+        {state.selectedUser && state.selectedRepository && <IssuePage/>}
+      </div>
+
+
   );
 }
 
